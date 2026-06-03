@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webinar Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ===== Login view (shown when signed out) ===== -->
+    <div id="login-view" class="login-shell" hidden>
+      <form class="login-card" id="loginForm">
+        <h1>Webinar Registrants</h1>
+        <p class="sub">Sign in to continue</p>
+        <label class="lbl">Email</label>
+        <input id="loginEmail" type="email" autocomplete="username" required />
+        <label class="lbl">Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required />
+        <div class="login-error" id="loginError" hidden></div>
+        <button class="primary" type="submit" id="loginBtn">Sign in</button>
+        <p class="hint">
+          Accounts are created in Supabase &rarr; Authentication &rarr; Users. There is no public sign-up.
+        </p>
+      </form>
+    </div>
+
+    <!-- ===== App view (shown when signed in) — built by app.js ===== -->
+    <div id="app-view" hidden></div>
+
+    <!-- Supabase JS (browser SDK) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
