@@ -203,7 +203,9 @@ class Explorer {
       const raw = localStorage.getItem(this.STORAGE_KEY);
       if (!raw) return;
       const s = JSON.parse(raw);
-      if (typeof s.source === 'string') this.source = s.source;
+      // Only restore a saved source if it still exists as a tab — otherwise a
+      // since-removed source (e.g. an old view name) would fetch and 404.
+      if (typeof s.source === 'string' && SOURCES.some((src) => src.name === s.source)) this.source = s.source;
       if (s.filters && typeof s.filters === 'object') this.filters = s.filters;
       if (s.bools && typeof s.bools === 'object') this.bools = s.bools;
       if (typeof s.dateFrom === 'string') this.dateFrom = s.dateFrom;
