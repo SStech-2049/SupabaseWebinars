@@ -13,11 +13,10 @@
 const SOURCES = [
   { name: 'webinar_registrants', label: 'Registrants — table' },
   { name: 'webinar_events', label: 'Events — table' },
-  { name: 'v_webinar_registrants_with_event', label: 'Registrants + live event — view' },
   { name: 'v_all_registrants', label: 'All registrants — view' },
+  { name: 'v_registered', label: 'Registered — view' },
   { name: 'v_unregistered', label: 'Unregistered — view' },
-  { name: 'v_scheduled_registrants', label: 'Scheduled registrants — view' },
-  { name: 'v_no_shows', label: 'No-shows — view' },
+  { name: 'v_no_show', label: 'No-shows — view' },
 ];
 const SEARCH_COLUMNS = ['email', 'first_name', 'last_name', 'name', 'phone'];
 const ENUM_FILTERS = [
