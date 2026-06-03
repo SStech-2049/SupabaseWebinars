@@ -17,7 +17,7 @@ const SOURCES = [
   { name: 'v_all_registrants', label: 'All registrants — view' },
   { name: 'v_unregistered', label: 'Unregistered — view' },
   { name: 'v_scheduled_registrants', label: 'Scheduled registrants — view' },
-  { name: 'v_webinar_no_shows', label: 'No-shows — view' },
+  { name: 'v_no_shows', label: 'No-shows — view' },
 ];
 const SEARCH_COLUMNS = ['email', 'first_name', 'last_name', 'name', 'phone'];
 const ENUM_FILTERS = [
