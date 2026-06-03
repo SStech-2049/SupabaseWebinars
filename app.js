@@ -87,9 +87,7 @@ const loginView = $('#login-view');
 const appView = $('#app-view');
 let explorer = null;
 
-async function refreshAuth() {
-  const { data } = await sb.auth.getUser();
-  const user = data?.user ?? null;
+function applyAuth(user) {
   if (user) {
     loginView.hidden = true;
     appView.hidden = false;
@@ -99,6 +97,18 @@ async function refreshAuth() {
     loginView.hidden = false;
     explorer = null;
     appView.innerHTML = '';
+  }
+}
+
+async function refreshAuth() {
+  // getSession() reads the persisted session from storage (no network round-trip
+  // that can hang). Always fall back to the login view on error so we never get
+  // stuck on a blank page.
+  try {
+    const { data } = await sb.auth.getSession();
+    applyAuth(data?.session?.user ?? null);
+  } catch {
+    applyAuth(null);
   }
 }
 
@@ -124,7 +134,11 @@ $('#loginForm').addEventListener('submit', async (e) => {
   await refreshAuth();
 });
 
-sb.auth.onAuthStateChange(() => refreshAuth());
+// IMPORTANT: do NOT call other supabase auth methods (getUser/getSession) inside
+// this callback — it runs while the auth lock is held and would deadlock, leaving
+// the page blank on refresh. Use the session handed to us directly. This fires
+// INITIAL_SESSION on load with the persisted session, then on every sign in/out.
+sb.auth.onAuthStateChange((_event, session) => applyAuth(session?.user ?? null));
 refreshAuth();
 
 /* ============================================================================
